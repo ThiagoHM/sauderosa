@@ -1,4 +1,5 @@
-Saúde Rosa
+Saúde Rosa.
+
 Este projeto foi desenvolvido com o objetivo de aprofundar meus conhecimentos em desenvolvimento web, utilizando o framework React para explorar suas principais funcionalidades e otimizar a construção de interfaces modernas e dinâmicas.
 
 Durante o processo, utilizei o Tailwind CSS, uma biblioteca que facilitou a estilização e personalização das telas, garantindo um design responsivo e organizado de forma prática e eficiente. O uso do Tailwind permitiu uma abordagem modular, reduzindo a necessidade de CSS tradicional e acelerando o desenvolvimento.
