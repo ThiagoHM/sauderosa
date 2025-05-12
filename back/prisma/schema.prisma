@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        String       @id @default(uuid())
+  nome      String
+  sobrenome String
+  email     String       @unique
+  senha     String
+  telefone  String
+  cep       String
+  rua       String
+  bairro    String
+  numero    String
+  isAdmin   Boolean      @default(false)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  comentarios Comentario[]
+  respostas   Resposta[]
+  questionario Questionario[]
+  avaliacao    Avaliacao[]
+}
+
+model Comentario {
+  id         String      @id @default(uuid())
+  texto      String
+  autor      String      // Nome do autor (salvo no momento do comentário)
+  dataCriacao DateTime   @default(now())
+  usuarioId  String
+  usuario    Usuario     @relation(fields: [usuarioId], references: [id])
+  respostas  Resposta[]
+}
+
+model Resposta {
+  id          String      @id @default(uuid())
+  texto       String
+  autor       String      // Nome do autor da resposta
+  dataCriacao DateTime    @default(now())
+  comentarioId String
+  comentario   Comentario @relation(fields: [comentarioId], references: [id])
+  usuarioId    String
+  usuario      Usuario     @relation(fields: [usuarioId], references: [id])
+}
+
+
+model Questionario {
+  id                                Int      @id @default(autoincrement())
+  idade                             String
+  procedimento                       String
+  tempo_operacao                    String
+  tipo_cancer                        String
+  tratamento_fisio                   String
+  familia_cancer                     String
+  recidiva                           String
+  flexao_extensao                    String
+  abducao_aducao                     String
+  rotacao                            String
+  abducao_horizontal                 String
+  perda_forca                        String
+  dor                                Int
+  gravidade                          String   @default("Leve") // Leve, Moderado, Grave
+  usuarioId                         String?
+  usuario                           Usuario?  @relation(fields: [usuarioId], references: [id])
+}
+
+
+model Avaliacao {
+  id    Int @id @default(autoincrement())
+  texto String  @db.Text
+  nota  Int
+
+  usuario                           Usuario  @relation(fields: [usuarioId], references: [id])
+  usuarioId String
+}
